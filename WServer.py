@@ -11,7 +11,7 @@ async def opt(websocket, path):
     args=[] 
     if opt in ['sumar','multiplicar']:
         args = [*option.values()][0] 
-    elif opt == 'palabras':
+    elif opt in ['palabras','listar']:
         args.append(option[opt][0])
 
     print(f"< {opt} {args}")
