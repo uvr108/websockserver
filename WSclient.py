@@ -8,7 +8,7 @@ from rthkdb.continuos import Continuos
 
 async def opt():
     async with websockets.connect(
-            'ws://localhost:8765') as websocket:
+            'ws://10.54.218.19:8765') as websocket:
         print(f'{[*comandos.keys()]}')
 
         option = input("Ingrese su opcion ? ")
