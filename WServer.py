@@ -1,26 +1,51 @@
 import asyncio
 import websockets
 import sys
+import datetime
 import json
 from funciones import comandos
 
 async def opt(websocket, path):
     #option = await websocket.recv()
-    option=json.loads(await websocket.recv())
-    opt = [*option.keys()][0] 
-    args=[] 
-    if opt in ['sumar','multiplicar']:
-        args = [*option.values()][0] 
-    elif opt in ['palabras','listar']:
-        args.append(option[opt][0])
 
-    print(f"< {opt} {args}")
-    output = comandos.get(opt)(*args)
+    while True:
+        vector=[]
+        print("Empezando a recibir data")
+        option=json.loads(await websocket.recv())
+        # print('option : ',option,type(option),[*option.keys()],[*option.values()])
+        opt = option.get('command')
+        args=[] 
+        if opt in ['sumar','multiplicar']:
+            args = option.get('message') 
+        elif opt in ['palabras','listar']:
+            # print(f"< {opt} {args}")
+            args.append(option.get('message'))
 
-    msgstr = json.dumps({'respuesta':output}) 
+        # print(f"< {opt} {args}")
+        output = comandos.get(opt)(*args)
+        # print(output)
+        # print("############################") 
+        id=0
+        for kdic in output:
+            # print(f"kdic : {kdic}")
+            salida = {}
+            for k,v in kdic.items():
+                id+=1    
+                if isinstance(v, datetime.date):
+                    salida.update({k:str(v)[:-6]})
+                else:
+                    salida.update({k:v})
+            # print(f"salida : {salida}")
+            vector.append(salida)   
+        # print("##########################") 
+        # print(f" vector : {vector}")
+        
+        msgstr = json.dumps(vector) 
 
-    await websocket.send(msgstr)
+        # print(f"> yyyy {msgstr}")
 
+        await websocket.send(msgstr)
+        
 start_server = websockets.serve(opt, '10.54.218.19', 8765)
 
 asyncio.get_event_loop().run_until_complete(start_server)
