@@ -8,6 +8,7 @@ rt_port=os.environ['rt_port']
 rt_db=os.environ['rt_db']
 
 def sumar(*lista):
+    # print('lista : ',lista)
     return sum(lista) 
 
 def multiplicar(*lista):
