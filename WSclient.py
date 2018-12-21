@@ -8,7 +8,7 @@ from rthkdb.continuos import Continuos
 
 async def opt():
     async with websockets.connect(
-            'ws://10.54.218.19:8765') as websocket:
+            'ws://127.0.0.1:8765') as websocket:
 
 
         while (1):
