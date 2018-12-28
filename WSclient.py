@@ -2,9 +2,7 @@ import asyncio
 import websockets
 from funciones import comandos
 import json
-import rethinkdb as r
-from rethinkdb.errors import RqlRuntimeError
-from rthkdb.continuos import Continuos
+
 
 async def opt():
     async with websockets.connect(
@@ -29,21 +27,32 @@ async def opt():
                 frase = input('ingrese su frase : ')
                 args.append(frase)
             elif option == 'listar':
+
                 tabla = input('ingrese tabla : ')
-                kw={'table':tabla}
+
                 flag = ''
-                where = {'action':'NEW'}
-                indice = {'anomes':[2018,10]}
-                order = 'sfile'
+                where = {}
+                order = 'code'
                 distinct = None
-                pluck = ['action','latitud','longitud','operador','m1_magnitud','no']
-                get_all = {'flag':flag,'where': where, 'indice':indice, 'order':order,'pluck':pluck,'distinct': distinct }
-                kw.update({'get_all':get_all})
+                fecha_ini = '2000-11-01T00:00:00+00:00'
+                fecha_fin = '2019-11-01T23:59:59+00:00'
+                between = {'initial': fecha_ini, 'final': fecha_fin, 'index': 'fecha'}
+                pluck = ['code', 'fecha', 'monto', 'item', 'obs']
+                kw = {'table': tabla, 'command': 'select', 'flag': flag, 'where': where, 'order': order, 'pluck': pluck, 'between': between,
+                                    'distinct': distinct}
+
+                kw = {'command': 'listar', 'message': kw}
+
                 args.append(kw)
-            elif option == 'salir':
+
+            else:
                break
 
-            msg = json.dumps({"command":option, "message":args})
+            msg = json.dumps({"command": option, "message": args})
+
+            print(f"{msg}")
+
+
             await websocket.send(msg)
             print(f"> {option}")
 
