@@ -10,11 +10,9 @@ def main():
 
     print(f'{[*comandos.keys()]}')
 
+    while 1:
 
-    args = []
-
-    while (1):
-
+        args = []
         option = input('Ingrese opcion : ')
         print(f'Su opcion es {option}')
 
@@ -22,32 +20,28 @@ def main():
             break
         elif option == 'sumar':
             lis = input('ingrese lista de numeros : ')
-            args=json.loads(lis)
+            args = json.loads(lis)
         elif option == 'multiplicar':
             lis = input('ingrese lista de numeros : ')
-            args=json.loads(lis) 
+            args = json.loads(lis)
         elif option == 'palabras':
             frase = input('ingrese su frase : ')
             args.append(frase)
         elif option == 'listar':
             tabla = input('ingrese tabla : ')
-            kw={'table':tabla}
-            flag = ''
-            where = {}
-            indice = {'anomes':[2018,10]}
-            order = 'sfile'
-            distinct = None
-            pluck = ['action','latitud','longitud','operador','m1_magnitud','no']
-            get_all = {'flag':flag,'where': where, 'indice':indice, 'order':order,'pluck':pluck,'distinct': distinct }
-            kw.update({'get_all':get_all})
+            flag = None
+            where = None
+            between = {'initial': '2000-11-01T00:00:00+00:00', 'final': '2019-11-01T23:59:59+00:00', 'index': 'fecha'}
+            order = 'obs'
+            distinct = 1
+            pluck = ['code', 'monto', 'obs', 'fecha', 'item']
+            kw = {'table': tabla, 'command': 'select', 'between': between, 'flag': flag, 'where': where, 'order': order, 'pluck': pluck, 'distinct': distinct}
             args.append(kw)
+            print(f"args : {args}")
+        for res in comandos.get(option)(*args):
+            print(f"res : {res}")
 
-        res = comandos.get(option)(*args)
-        print(f"{res}")
 
 if __name__ == "__main__":
 
     main()
-
-
-     
