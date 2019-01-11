@@ -1,11 +1,6 @@
 from funciones import comandos
 import json
 
-import rethinkdb as r
-from rethinkdb.errors import RqlRuntimeError
-from rthkdb.continuos import Continuos
-
-
 def main():
 
     print(f'{[*comandos.keys()]}')
