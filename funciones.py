@@ -8,8 +8,11 @@ rt_port = os.environ['rt_port']
 rt_db = os.environ['rt_db']
 
 
+print(rt_host,rt_port,rt_db)
+
+
 def sumar(*lista):
-    # print('lista : ',lista)
+    print('lista : ',lista)
     return sum(lista) 
 
 
@@ -25,13 +28,14 @@ def palabras(frase):
 
 def listar(kw):
 
-    # print(f"{kw}")
+    # print(f"Estoy Listando : {kw}")
     cons = Continuos()
     conn = r.connect(host=rt_host, port=rt_port, db=rt_db)
     data = cons.ejecutar(r, **kw)
+    # print(f"data devuelta : {data}")
     conn.close()
     cons.__del__()
-    return data
+    return data 
 
 
 comandos = {'sumar': sumar, 'multiplicar': multiplicar, 'palabras': palabras, 'listar': listar}
