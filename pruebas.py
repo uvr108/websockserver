@@ -29,8 +29,8 @@ def main():
             between = {'initial': '2000-11-01T00:00:00+00:00', 'final': '2019-11-01T23:59:59+00:00', 'index': 'fecha'}
             order = 'obs'
             distinct = 1
-            pluck = ['code', 'monto', 'obs', 'fecha', 'item']
-            kw = {'table': tabla, 'command': 'select', 'between': between, 'flag': flag, 'where': where, 'order': order, 'pluck': pluck, 'distinct': distinct}
+            pluck = ['code']
+            kw = {'table': tabla, 'command': 'select', 'pluck': pluck}
             args.append(kw)
             print(f"args : {args}")
         for res in comandos.get(option)(*args):
