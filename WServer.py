@@ -30,24 +30,22 @@ async def opt(websocket, path):
         vector = []
         print("Empezando a recibir data")
         option = json.loads(await websocket.recv())
-        # print('option : ', option, type(option), [*option.keys()], [*option.values()])
+        
         opt = option.get('command')
-        args = []
-        if opt in ['sumar', 'multiplicar']:
-            args = option.get('message') 
-        elif opt in ['palabras', 'listar']:
-            # print(f"< {opt} {args}")
-            args.append(option.get('message'))
-
-        # print(f"< {opt} {args}")
+        
+        args = option.get('message')
+        
         output = comandos.get(opt)(*args)
         # print(output)
         # print("##########################")
 
         # for lista in genlista(output):
-        #   print(f"lista : {lista}")
+        #  print(f"lista : {lista}")
+        if option.get('command') == 'listar':
 
-        msgstr = json.dumps(genlista(output))
+            msgstr = json.dumps(genlista(output))
+        else:
+            msgstr = json.dumps(output)
 
         # print(f"> yyyy {msgstr}")
 
