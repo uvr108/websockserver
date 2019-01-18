@@ -6,7 +6,7 @@ import json
 
 async def opt():
     async with websockets.connect(
-            'ws://127.0.0.1:8765') as websocket:
+            'ws://10.54.218.170:8765') as websocket:
 
 
         while True:
@@ -29,20 +29,22 @@ async def opt():
 
                 tabla = input('ingrese tabla : ')
 
-                flag = ''
+                # flag = ''
                 # where = {}
                 # order = 'code'
                 # distinct = None
                 # fecha_ini = '2000-11-01T00:00:00+00:00'
                 # fecha_fin = '2019-11-01T23:59:59+00:00'
                 # between = {'initial': fecha_ini, 'final': fecha_fin, 'index': 'fecha'}
-                pluck = ['code', 'fecha', 'monto', 'obs']
-                kw = {'table': tabla, 'option': 'select', 'pluck' : pluck } 
 
-                kw = {'command': 'listar', 'message': kw}
+                pluck = ['code', 'fecha', 'item', 'monto', 'obs']
+                
+                msg = {'table': tabla, 'option': 'select', 'pluck' : pluck } 
+
+                kw = {'command': 'listar', 'message': msg}
 
                 args.append(kw)
-
+ 
 
             msg = json.dumps({"command": option, "message": args})
 
