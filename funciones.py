@@ -28,15 +28,16 @@ def palabras(frase):
 
 def listar(kw):
 
-    # print(f"Estoy Listando : {kw}")
+    print(f"Estoy Listando : {kw}")
+    
     cons = Continuos()
     conn = r.connect(host=rt_host, port=rt_port, db=rt_db)
     data = cons.ejecutar(r, **kw)
     # print(f"data devuelta : {data}")
     conn.close()
     cons.__del__()
-    return data 
-
+    return data
+    
 
 comandos = {'sumar': sumar, 'multiplicar': multiplicar, 'palabras': palabras, 'listar': listar}
 
