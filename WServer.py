@@ -2,8 +2,9 @@ import asyncio
 import websockets
 import datetime
 import json
-from funciones import comandos
+import os
 
+from funciones import comandos
 
 async def opt(websocket, path):
     # option = await websocket.recv()
@@ -51,7 +52,7 @@ async def opt(websocket, path):
 
         await websocket.send(msgstr)
         
-start_server = websockets.serve(opt, '10.54.218.170', 8765)
+start_server = websockets.serve(opt, '10.54.218.167', '8765')
 
 asyncio.get_event_loop().run_until_complete(start_server)
 asyncio.get_event_loop().run_forever()
