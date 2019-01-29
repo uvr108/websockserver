@@ -6,12 +6,12 @@ import json
 
 async def opt():
     async with websockets.connect(
-            'ws://10.54.218.170:8765') as websocket:
+            'ws://10.54.218.167:8765') as websocket:
 
 
         while True:
 
-            print(f'{[*comandos.keys()]}')
+            print(f'{[*comandos.keys()]} q: salir')
             option = input("Ingrese su opcion ? ")
  
             args=[]
@@ -25,6 +25,8 @@ async def opt():
             elif option == 'palabras':
                 frase = input('ingrese su frase : ')
                 args.append(frase)
+            elif option == 'q':
+                break;
             elif option == 'listar':
 
                 tabla = input('ingrese tabla : ')
