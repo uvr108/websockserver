@@ -26,18 +26,12 @@ async def opt():
                 frase = input('ingrese su frase : ')
                 args.append(frase)
             elif option == 'q':
-                break;
+                break 
+            elif option == 'sql':
+                args=[]
             elif option == 'listar':
 
                 tabla = input('ingrese tabla : ')
-
-                # flag = ''
-                # where = {}
-                # order = 'code'
-                # distinct = None
-                # fecha_ini = '2000-11-01T00:00:00+00:00'
-                # fecha_fin = '2019-11-01T23:59:59+00:00'
-                # between = {'initial': fecha_ini, 'final': fecha_fin, 'index': 'fecha'}
 
                 pluck = ['code', 'fecha', 'item', 'monto', 'obs']
                 
