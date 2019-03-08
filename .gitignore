@@ -2,3 +2,15 @@
 pruebas.py
 __pycache__/
 .idea/
+
+WServer.py.old
+WServer_file.py
+WServer_operator.py
+WServer_pgsql.py
+WServer_rthk.py
+coro.py
+download.py.old
+logs/
+prueba.py
+prueba2.py
+xx
