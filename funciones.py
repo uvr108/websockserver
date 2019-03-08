@@ -1,30 +1,77 @@
 from functools import reduce
 from stations import obtener
 from listar import getlista
+from download import bajar 
+import asyncio
+import os
+import nest_asyncio
+nest_asyncio.apply()
 
-def sumar(*lista):
-    print('lista : ',lista)
+async def sumar(*lista):
     sum = lambda a, b: a+b
     return reduce(sum, lista) 
 
-def multiplicar(*lista):
+
+async def multiplicar(*lista):
     mult = lambda a, b: a*b
     return reduce(mult, lista)
 
 
-def palabras(frase):
+async def palabras(frase):
     pl = frase.split()
     return len(pl)
 
-def sql():
+async def sql():
 
     return obtener() 
 
-def listar(kw):
+async def listar(kw):
 
     return getlista(kw) 
 
-comandos = {'sumar': sumar, 'multiplicar': multiplicar, 'palabras': palabras, 'listar': listar, 'sql':sql}
+async def download(station,filedir,di,df):
+    
+    return bajar(station,filedir,di,df)
+
+comandos = {'sumar': sumar, 'multiplicar': multiplicar, 'palabras': palabras, 'listar': listar, 'sql':sql, 'download': download}
+
+
+if __name__ == "__main__":
+
+
+    #####################################
+    v = [1,2,3,4]
+    #####################################
+    # args = [stations, t1, t2]
+
+    station = ['VALN','PVCA']
+    filedir = os.environ['RDB_FILEDIR']
+    di = "2019-01-07T00:00:00+00:00"
+    df = "2019-01-07T01:59:59+00:00"
+
+
+    ######################################
+    pluck = ['code', 'fecha', 'item', 'monto', 'obs']
+    msg = {'table': 'presupuesto', 'option': 'select', 'pluck' : pluck } 
+    kw = {'command': 'listar', 'message': msg}
+    ######################################
+
+    loop = asyncio.get_event_loop()
+
+    tasks = [  
+        asyncio.ensure_future(sumar(*v)),
+        asyncio.ensure_future(multiplicar(*v)),
+        asyncio.ensure_future(palabras('Hola Uli Como Estas')),
+        asyncio.ensure_future(sql()),
+        asyncio.ensure_future(listar(kw)),
+        asyncio.ensure_future(download(station,filedir,di,df))
+        ]
+    loop.run_until_complete(asyncio.wait(tasks))  
+    loop.close()
+
+
+
+
 
 
 
