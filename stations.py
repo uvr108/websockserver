@@ -1,5 +1,4 @@
 from orm_collector.manager import SessionCollector
-from Extraer.extraer import ejecuta
 
 from networktools.colorprint import bprint, gprint, rprint
 
