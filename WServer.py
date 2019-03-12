@@ -34,10 +34,10 @@ async def opt(websocket, path):
             
             # nest_asyncio.apply()
            
-            station = ['VALN','PVCA']
+            station = args[0] 
             filedir = os.environ['RDB_FILEDIR']
-            di = "2019-01-07T00:00:00+00:00"
-            df = "2019-01-07T01:59:59+00:00"
+            di = args[1]
+            df = args[2]
  
             output = await comandos.get(opt)(station,filedir,di,df)
             msgstr =  json.dumps(output) 
