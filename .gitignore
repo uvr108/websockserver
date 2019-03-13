@@ -3,6 +3,8 @@ pruebas.py
 __pycache__/
 .idea/
 
+trash/
+
 WServer.py.old
 WServer_file.py
 WServer_operator.py
