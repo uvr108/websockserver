@@ -18,13 +18,14 @@ async def opt(websocket, path):
         print("Empezando a recibir data")
         option = json.loads(await websocket.recv())
        
-        print('RECIVO : ',option)
  
         opt = option.get('command')
         tipo = option.get('tipo')
         args = option.get('message')
 
-        print("option tipo args : ", option, tipo, args)
+        # print("option : ",option)
+        # print("tipo : ", tipo)
+        # print("args : ", args)
 
 
         if tipo == 'sql':
@@ -33,7 +34,7 @@ async def opt(websocket, path):
 
         elif tipo == 'file':
            
-            print('ARGS : ',args)
+            # print('ARGS : ',args)
             
             # nest_asyncio.apply()
            
