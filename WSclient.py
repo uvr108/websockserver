@@ -3,11 +3,13 @@ import websockets
 from funciones import comandos
 import json
 from Extraer.extraer import Extract 
+import os
 
+ws_host = os.environ['ws_host']
+ws_port = os.environ['ws_port']
 
 async def opt():
-    async with websockets.connect(
-            'ws://10.54.218.195:8765') as websocket:
+    async with websockets.connect(f'ws://{ws_host}:{ws_port}') as websocket:
 
 
         while True:
@@ -59,9 +61,10 @@ async def opt():
             elif option == 'listar':
 
                 ######################################
-                pluck = ['code', 'fecha', 'item', 'monto', 'obs']
-                msg = {'table': 'presupuesto', 'option': 'select', 'pluck' : pluck }
+                pluck = ['yr', 'jl', 'data']
+                msg = {'table': 'ratio', 'option': 'select', 'order':'' ,'pluck' : pluck }       
                 kw = {'command': 'listar', 'message': msg}
+
                 ######################################
                 tipo = 'rethink'
                 args.append(kw)
@@ -69,12 +72,12 @@ async def opt():
             msg = json.dumps({"command": option, "tipo": tipo, "message": args})
 
             print(f"{msg}")
+
             await websocket.send(msg)
             print(f"> {option}")
 
              
             greeting = await websocket.recv()
             print(f"< {greeting}")
-            
            
 asyncio.get_event_loop().run_until_complete(opt())
