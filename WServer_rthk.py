@@ -17,18 +17,26 @@ async def opt(websocket, path):
         print("Empezando a recibir data")
         option = json.loads(await websocket.recv())
        
-        print('RECIVO : ',option)
+        # print('RECIVO : ',option)
  
         opt = option.get('command')
         tipo = option.get('tipo')
         args = option.get('message')
 
-        print("option tipo args : ", option, tipo, args)
+        # print("option : ", option)
+        # print("tipo : " , tipo)
+        # print("args : ", args)
 
 
-        if tipo == 'rethink': 
-            output = await comandos.get(opt)(*args)
+        if tipo == 'rethink':
+            kw = args[0] 
+            # print(f'kw [WServer_rthk:33]', type(kw),kw)
+            
+            output = await comandos.get(opt)(kw)
+            # for o in output:
+            #     print('WServer:36',type(output),o)
             msgstr = json.dumps(genlista(output))
+            # print('msgstr [listar.py:37]', msgstr)
 
         await websocket.send(msgstr)
 
