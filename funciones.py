@@ -2,9 +2,11 @@ from functools import reduce
 from stations import obtener
 from listar import getlista
 from download import bajar 
+
 import asyncio
 import os
 import nest_asyncio
+
 nest_asyncio.apply()
 
 async def sumar(*lista):
@@ -26,14 +28,14 @@ async def sql():
     return obtener() 
 
 async def listar(kw):
-
+    # print(f'kw [funciones.py:31] {kw}')
     return getlista(kw) 
 
 async def download(station,filedir,di,df):
     
     return bajar(station,filedir,di,df)
 
-comandos = {'sumar': sumar, 'multiplicar': multiplicar, 'palabras': palabras, 'listar': listar, 'sql':sql, 'download': download}
+comandos = {'sumar': sumar, 'multiplicar': multiplicar, 'palabras': palabras, 'listar': listar, 'sql':sql, 'download': download }
 
 
 if __name__ == "__main__":
@@ -51,20 +53,20 @@ if __name__ == "__main__":
 
 
     ######################################
-    pluck = ['code', 'fecha', 'item', 'monto', 'obs']
-    msg = {'table': 'presupuesto', 'option': 'select', 'pluck' : pluck } 
+    pluck = ['yr', 'jl', 'data']
+    msg = {'table': 'ratio', 'option': 'select', 'limit':1,  'pluck' : pluck } 
     kw = {'command': 'listar', 'message': msg}
     ######################################
 
     loop = asyncio.get_event_loop()
 
     tasks = [  
-        asyncio.ensure_future(sumar(*v)),
-        asyncio.ensure_future(multiplicar(*v)),
-        asyncio.ensure_future(palabras('Hola Uli Como Estas')),
-        asyncio.ensure_future(sql()),
+        # asyncio.ensure_future(sumar(*v)),
+        # asyncio.ensure_future(multiplicar(*v)),
+        # asyncio.ensure_future(palabras('Hola Uli Como Estas')),
+        # asyncio.ensure_future(sql()),
         asyncio.ensure_future(listar(kw)),
-        asyncio.ensure_future(download(station,filedir,di,df))
+        # asyncio.ensure_future(download(station,filedir,di,df))
         ]
     loop.run_until_complete(asyncio.wait(tasks))  
     loop.close()
