@@ -10,6 +10,7 @@ rt_db = os.environ['rt_db']
 
 def genlista(output):
       vector = []
+      # print('output [listar.pr:13]', type(output), output)
       for kdic in output:
           # print(f"kdic : {kdic}")
           salida = {}
@@ -26,15 +27,15 @@ def genlista(output):
 
 def getlista(kw):
 
-    print(f"Estoy Listando : {kw}")
-   
-    cons = Continuos()
+    # print(f"Estoy Listando : {kw}")
+     
     conn = r.connect(host=rt_host, port=rt_port, db=rt_db)
-    data = cons.ejecutar(r, **kw)
-    # print(f"data devuelta : {data}")
-    conn.close()
+    cons = Continuos(conn)
+    data = cons.ejecutar(r,kw)
     cons.__del__()
+    # conn.close()
     return data
+    
 
 
 if __name__ == "__main__":
