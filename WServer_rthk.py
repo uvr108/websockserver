@@ -7,8 +7,8 @@ import os
 from funciones import comandos
 from listar import genlista
 
-ws_host = os.environ['ws_host']
-ws_port = os.environ['ws_port']
+sk_host = os.environ['sk_host']
+sk_port = 9999 
 
 async def opt(websocket, path):
 
@@ -41,7 +41,7 @@ async def opt(websocket, path):
         await websocket.send(msgstr)
 
  
-start_server = websockets.serve(opt, ws_host, ws_port)
+start_server = websockets.serve(opt, sk_host, sk_port)
 
 asyncio.get_event_loop().run_until_complete(start_server)
 asyncio.get_event_loop().run_forever()
