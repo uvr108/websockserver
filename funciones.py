@@ -28,7 +28,6 @@ async def sql():
     return obtener() 
 
 async def listar(kw):
-    # print(f'kw [funciones.py:31] {kw}')
     return getlista(kw) 
 
 async def download(station,filedir,di,df):
