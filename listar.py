@@ -3,10 +3,21 @@ import rethinkdb as r
 import datetime
 import os
 
-rt_host = os.environ['rt_host']
-rt_port = os.environ['rt_port']
-rt_db = os.environ['rt_db']
+# rt_host = os.environ['rt_host']
+# rt_port = os.environ['rt_port']
+# rt_db = os.environ['rt_db']
 
+"""
+>>> import datetime
+>>> fmt = '%Y.%m.%d'
+>>> s = '2019.06.04'
+>>> dt = datetime.datetime.strptime(s, fmt)
+>>> dt
+datetime.datetime(2019, 6, 4, 0, 0)
+>>> tt = dt.timetuple()
+>>> tt.tm_yday
+155
+"""
 
 def genlista(output):
       vector = []
@@ -27,14 +38,17 @@ def genlista(output):
 
 def getlista(kw):
 
-    # print(f"Estoy Listando : {kw}")
-     
-    conn = r.connect(host=rt_host, port=rt_port, db=rt_db)
-    cons = Continuos(conn)
-    data = cons.ejecutar(r,kw)
-    cons.__del__()
-    # conn.close()
-    return data
+    con = Continuos()
+    # print(f'kw1 : {kw}')
+    if kw['message'].get('order'):
+        order = []
+        for k,v in kw['message']['order'].items():
+            order.append(getattr(r,v)(k))
+        kw['message']['order']=order
+    # print(f'kw2: {kw}')
+    dat = con.ejecutar(kw)
+    del con
+    return dat
     
 
 
