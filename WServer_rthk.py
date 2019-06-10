@@ -8,7 +8,7 @@ from funciones import comandos
 from listar import genlista
 
 sk_host = os.environ['sk_host']
-sk_port = 9999 
+sk_port = os.environ['sk_port'] 
 
 async def opt(websocket, path):
 
@@ -21,22 +21,18 @@ async def opt(websocket, path):
  
         opt = option.get('command')
         tipo = option.get('tipo')
-        args = option.get('message')
+        kw = option.get('message')
 
-        # print("option : ", option)
+        # print("opt : ", opt)
         # print("tipo : " , tipo)
-        # print("args : ", args)
+        print("kw : ", kw)
 
 
         if tipo == 'rethink':
-            kw = args[0] 
-            # print(f'kw [WServer_rthk:33]', type(kw),kw)
-            
-            output = await comandos.get(opt)(kw)
-            # for o in output:
-            #     print('WServer:36',type(output),o)
+
+            output = await comandos.get(opt)({'message':kw})
+            # print(f'output : {str(output)}')
             msgstr = json.dumps(genlista(output))
-            # print('msgstr [listar.py:37]', msgstr)
 
         await websocket.send(msgstr)
 
