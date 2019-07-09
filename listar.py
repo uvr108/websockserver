@@ -46,7 +46,7 @@ def getlista(kw):
             order.append(getattr(r,v)(k))
         kw['message']['order']=order
     # print(f'kw2: {kw}')
-    dat = con.ejecutar(kw)
+    dat = con.consultar(kw)
     del con
     return dat
     
