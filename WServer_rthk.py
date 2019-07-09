@@ -25,14 +25,17 @@ async def opt(websocket, path):
 
         # print("opt : ", opt)
         # print("tipo : " , tipo)
-        print("kw : ", kw)
+        # print("kw : ", kw)
 
+        output = await comandos.get(opt)({'message':kw})
 
         if tipo == 'rethink':
 
-            output = await comandos.get(opt)({'message':kw})
-            # print(f'output : {str(output)}')
             msgstr = json.dumps(genlista(output))
+
+        elif tipo == 'csv':
+
+            msgstr = json.dumps(output)
 
         await websocket.send(msgstr)
 
