@@ -1,7 +1,7 @@
 from functools import reduce
-from stations import obtener
+# from stations import obtener
 from listar import getlista
-from download import bajar 
+from download import bajar,genera_csv 
 
 import asyncio
 import os
@@ -22,11 +22,11 @@ async def multiplicar(*lista):
 async def palabras(frase):
     pl = frase.split()
     return len(pl)
-
+"""
 async def sql():
 
     return obtener() 
-
+"""
 async def listar(kw):
     return getlista(kw) 
 
@@ -34,7 +34,12 @@ async def download(station,filedir,di,df):
     
     return bajar(station,filedir,di,df)
 
-comandos = {'sumar': sumar, 'multiplicar': multiplicar, 'palabras': palabras, 'listar': listar, 'sql':sql, 'download': download }
+async def download_mostra(mostra):
+
+    return genera_csv(mostra)
+
+""" comandos = {'sumar': sumar, 'multiplicar': multiplicar, 'palabras': palabras, 'listar': listar, 'sql':sql, 'download': download } """
+comandos = {'sumar': sumar, 'multiplicar': multiplicar, 'palabras': palabras, 'listar': listar, 'download': download, 'download_mostra': download_mostra }
 
 
 if __name__ == "__main__":
