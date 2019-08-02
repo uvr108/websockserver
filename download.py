@@ -29,7 +29,6 @@ def genera_csv(mostra):
     data = mostra["message"][1]
     key = data[0].keys()
 
-    # fec = time.time()
     fec = mostra["message"][0]
 
     print(f'fec : {fec}') 
@@ -44,49 +43,6 @@ def genera_csv(mostra):
         f.write(f'{myString}\n')
 
     f.close() 
-
-    
-
-    """
-    di = 'mostra'
-
-    fieldname = ['zona','fecha_origen','sfile','latitud','longitud','no','cont_5','cont_10','cont_15','cont_20'] 
-
-    with open('/var/ftp/pub/%s.csv' % di, 'w') as csvfile:
-
-       writer = csv.DictWriter(csvfile, fieldnames=fieldname)
-
-       writer.writeheader()
-       writer.writerow(data)
-
-       # for d in data:
-       #     print(d)
-       #     writer.writerow(data[d])
-       # salida = "%s.csv" % data
- 
-    csvfile.close()    
-
-    """
-
-    """
-        return {'creating':'archive'}
-
-
-        print("zip  %s/%s/%s.zip  : " % (filedir,di))
- 
-        zf = zipfile.ZipFile("%s/%s.zip" % (filedir, di), mode='w')
-
-        dir_ = '%s/%s' % (filedir, di)
- 
-        for d in data: 
-            print('adding %s_%s.csv' % (dir_, d))
-            zf.write('%s_%s.csv' % (dir_, d), basename('%s_%s.csv' % (dir_, d)))
-    
-        print('closing')
-        zf.close()
-        return "%s.zip" % di
-
-    """
 
     return {'filedir': '%s.csv' % fec}
 
