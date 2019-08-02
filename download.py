@@ -26,10 +26,13 @@ def bajar(station,filedir,di,df):
 
 def genera_csv(mostra): 
 
-    data = mostra["message"]
+    data = mostra["message"][1]
     key = data[0].keys()
 
-    fec = time.time()
+    # fec = time.time()
+    fec = mostra["message"][0]
+
+    print(f'fec : {fec}') 
  
     f = open('/var/ftp/pub/%s.csv' % fec, 'w')
     
