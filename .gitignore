@@ -3,6 +3,7 @@ pruebas.py
 __pycache__/
 .idea/
 
+logs/
 trash/
 
 WServer.py.old
@@ -14,6 +15,5 @@ download.py.old
 logs/
 prueba.py
 prueba2.py
-xx
 
 *gz
