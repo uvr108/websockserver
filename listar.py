@@ -1,5 +1,5 @@
 from rthkdb.continuos import Continuos
-import rethinkdb as r
+import rethinkdb as rdb
 import datetime
 import os
 
@@ -38,14 +38,19 @@ def genlista(output):
 
 def getlista(kw):
 
+    r=rdb.RethinkDB()
     con = Continuos()
-    # print(f'kw1 : {kw}')
+
+    if kw['message'].get('order'):
+        print(f"kw XXX  : {kw['message']['order'].items()}")
+    
     if kw['message'].get('order'):
         order = []
+        
         for k,v in kw['message']['order'].items():
             order.append(getattr(r,v)(k))
         kw['message']['order']=order
-    # print(f'kw2: {kw}')
+    print(f'kw2: {kw}')
     dat = con.consultar(kw)
     del con
     return dat
